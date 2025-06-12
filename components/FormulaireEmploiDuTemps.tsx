@@ -11,73 +11,59 @@ type DonneeEmploi = {
   fuseau: string;
   equipe: 'Matin' | 'Soir';
   duree: string;
-  heure: string;
 };
 
-export default function EmploiDuTempsFormulaire() {
+export default function FormulaireEmploiDuTemps() {
   const [formData, setFormData] = useState<DonneeEmploi>({
-    nom: '',
-    dateArrivee: '',
-    dateDepart: '',
-    jour: '',
-    nbTravailleurs: 1,
+    nom: 'Marie ,luca,richard',
+    dateArrivee: '2025-06-12T08:00',
+    dateDepart: '2025-06-12T15:00',
+    jour: 'Lundi',
+    nbTravailleurs: 3,
     fuseau: 'Africa/Libreville',
     equipe: 'Matin',
-    duree: '',
-    heure: '',
+    duree: '6h 0min',
   });
 
+  // Calcule la durée automatiquement
   const calculerDuree = (arrivee: string, depart: string) => {
     const debut = new Date(arrivee);
     const fin = new Date(depart);
     const diff = fin.getTime() - debut.getTime();
+
     if (isNaN(diff) || diff < 0) return '';
+
     const heures = Math.floor(diff / 1000 / 60 / 60);
     const minutes = Math.floor((diff / 1000 / 60) % 60);
+
     return `${heures}h ${minutes > 0 ? minutes + 'min' : ''}`;
   };
 
+  // Mise à jour des champs
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     const updatedData = { ...formData, [name]: value };
+
+    // Recalcul de la durée si dates changent
     if (name === 'dateArrivee' || name === 'dateDepart') {
       updatedData.duree = calculerDuree(updatedData.dateArrivee, updatedData.dateDepart);
     }
+
     setFormData(updatedData);
   };
 
+  // Soumission (pour test ici : console log)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const debut = new Date(formData.dateArrivee);
-    const fin = new Date(formData.dateDepart);
-    const diffMs = fin.getTime() - debut.getTime();
-    const heures = diffMs / 1000 / 60 / 60;
-
-    if (isNaN(heures) || heures < 0) {
-      alert("Dates invalides. Vérifie l'heure d'arrivée et de départ.");
-      return;
-    }
-
-    if (heures < 4) {
-      alert(`Durée de travail insuffisante : ${Math.floor(heures)}h. Minimum requis : 4h.`);
-      return;
-    }
-
     console.log('Données soumises :', formData);
-    alert('Formulaire soumis ! Durée de travail respectée.');
+    alert('Formulaire soumis ! Voir console pour les données.');
   };
 
-  const heuresDisponibles = Array.from({ length: 33 }, (_, i) => {
-    const heures = Math.floor(i / 2) + 8;
-    const minutes = i % 2 === 0 ? '00' : '30';
-    return `${heures.toString().padStart(2, '0')}:${minutes}`;
-  });
-
   return (
-    <div className="w-[800px] min-h-[400px] p-6 border-4 border-blue-500 rounded-lg bg-gray-50 text-gray-800 mx-auto">
-      <h2 className="text-xl text-blue-500 font-bold mb-6 text-center">Formulaire d'emploi du temps</h2>
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-11">
+    <div className="max-w-3xl mx-auto mt-8 p-6 border rounded shadow">
+      <h2 className="text-xl font-bold mb-6 text-center">Formulaire d'emploi du temps</h2>
+
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           type="text"
           name="nom"
@@ -133,8 +119,8 @@ export default function EmploiDuTempsFormulaire() {
           onChange={handleChange}
           className="border p-2 rounded"
         >
-          <option value="Africa/Libreville">Africa/Libreville (Gabon)</option>
-          <option value="Europe/Paris">Europe/Paris</option>
+          <option value="Africa/Libreville">Fuseau : Africa/Libreville (Gabon)</option>
+          <option value="Europe/Paris">Fuseau : Europe/Paris</option>
           <option value="UTC">UTC</option>
           <option value="Africa/Algiers">Africa/Algiers</option>
           <option value="America/New_York">America/New_York</option>
@@ -150,24 +136,18 @@ export default function EmploiDuTempsFormulaire() {
           <option value="Soir">Équipe du soir</option>
         </select>
 
-        <select
-          name="heure"
-          value={formData.heure}
-          onChange={handleChange}
-          required
-          className="border p-2 rounded"
-        >
-          <option value="">-- Heure de début --</option>
-          {heuresDisponibles.map((heure) => (
-            <option key={heure} value={heure}>
-              {heure}
-            </option>
-          ))}
-        </select>
+        <input
+          type="text"
+          name="duree"
+          placeholder="Durée"
+          value={formData.duree}
+          readOnly
+          className="border p-2 rounded bg-gray-100"
+        />
 
         <button
           type="submit"
-          className="col-span-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="col-span-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
         >
           Enregistrer
         </button>
