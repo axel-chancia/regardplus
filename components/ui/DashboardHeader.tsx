@@ -13,7 +13,7 @@ export default function DashboardHeader() {
       >
         Tableau de bord
       </motion.h1>
-      <p className="text-sm text-gray-500">Vue d'ensemble des activités de l’entreprise</p>
+      <p className="text-sm text-gray-500">Vue d&apos;ensemble des activit&eacute;s de l&rsquo;entreprise</p>
     </div>
   )
 }

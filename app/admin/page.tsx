@@ -3,7 +3,6 @@
 import DashboardHeader from "@/components/ui/DashboardHeader"
 import StatCard from "@/components/ui/StatCard"
 import EmployeeChart from "@/components/ui/EmployeeChart"
-import AnnualCalendar from "@/components/ui/AnnualCalendar"
 import RecentEmployees from "@/components/ui/RecentEmployees"
 
 import {
@@ -19,14 +18,13 @@ export default function DashboardPage() {
       <DashboardHeader />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-        <StatCard label="Total Employés" value="24" icon={<Users className="w-6 h-6 text-blue-600" />} />
+        <StatCard label="Total Employ&eacute;s" value="24" icon={<Users className="w-6 h-6 text-blue-600" />} />
         <StatCard label="Nouveaux ce mois" value="4" icon={<UserPlus className="w-6 h-6 text-green-600" />} />
-        <StatCard label="Événements" value="6" icon={<CalendarDays className="w-6 h-6 text-purple-600" />} />
+        <StatCard label="&Eacute;v&eacute;nements" value="6" icon={<CalendarDays className="w-6 h-6 text-purple-600" />} />
         <StatCard label="Croissance" value="+62%" icon={<TrendingUp className="w-6 h-6 text-pink-600" />} />
       </div>
 
       <EmployeeChart />
-      <AnnualCalendar />
       <RecentEmployees />
     </div>
   )
