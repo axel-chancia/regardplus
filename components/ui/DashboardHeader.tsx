@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 export default function DashboardHeader() {
   return (
-    <div className="w-full flex flex-col space-y-2">
+    <div className="w-full">
       <motion.h1
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -13,14 +13,7 @@ export default function DashboardHeader() {
       >
         Tableau de bord
       </motion.h1>
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="text-sm text-gray-500"
-      >
-        Vue d'ensemble des activités de l’entreprise
-      </motion.p>
+      <p className="text-sm text-gray-500">Vue d&apos;ensemble des activit&eacute;s de l&rsquo;entreprise</p>
     </div>
   )
 }
