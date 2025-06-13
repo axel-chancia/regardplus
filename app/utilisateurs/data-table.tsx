@@ -81,7 +81,7 @@ export function DataTable<TData, TValue>({
          <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto bg-blue-500  text-black hover:bg-blue-500 hover:text-white">
-              Columns
+              Détails
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
