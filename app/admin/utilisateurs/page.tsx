@@ -1,6 +1,31 @@
-import { columns, User } from "@/app/admin/emploi-du-temps/culumns/columns"
 import { DataTable } from "./data-table/data-table"
+import { ColumnDef } from "@tanstack/react-table"
 
+// Définition du type User
+type User = {
+  id: string;
+  noms: string;
+  poste: string;
+  email: string;
+};
+
+// Colonnes du tableau
+const columns: ColumnDef<User>[] = [
+  {
+    accessorKey: "noms",
+    header: "Noms",
+  },
+  {
+    accessorKey: "poste",
+    header: "Poste",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+];
+
+// Fonction pour récupérer les données
 async function getData(): Promise<User[]> {
   // Fetch data from your API here.
   return [
@@ -14,6 +39,7 @@ async function getData(): Promise<User[]> {
   ]
 }
 
+// Composant principal
 export default async function DemoPage() {
   const data = await getData()
 

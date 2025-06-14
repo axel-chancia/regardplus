@@ -54,6 +54,7 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility, // <-- Utilisé ici
     onRowSelectionChange: setRowSelection,
     state: {
       sorting,
@@ -66,7 +67,6 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center py-4">
-        {/* Filter input: replace "email" by a relevant column if needed */}
         <Input
           placeholder="Filter..."
           value={(table.getColumn("nom")?.getFilterValue() as string) ?? ""}

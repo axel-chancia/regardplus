@@ -123,7 +123,7 @@ export const columns: ColumnDef<GroupSchedule>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem onClick={() => navigator.clipboard.writeText(group.id)}>
-              Copier l'ID
+              Copier l&aposID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => console.log("MODIFY", group)}>

@@ -76,7 +76,7 @@ export const adminColumns: ColumnDef<Admin>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem onClick={() => navigator.clipboard.writeText(admin.id)}>
-              Copier l'ID
+              Copier l&aposID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => console.log("MODIFY", admin)}>
