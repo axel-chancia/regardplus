@@ -21,15 +21,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/app/utilisateurs/utilisateurscomponents/ui/table"
-import { Button } from "@/app/utilisateurs/utilisateurscomponents/ui/button"
+} from "@/app/admin/emploi-du-temps/utilisateurscomponents/ui/table"
+import { Button } from "@/app/admin/emploi-du-temps/utilisateurscomponents/ui/button"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/app/utilisateurs/utilisateurscomponents/ui/dropdown-menu"
-import { Input } from "@/app/utilisateurs/utilisateurscomponents/ui/input"
+} from "@/app/admin/emploi-du-temps/utilisateurscomponents/ui/dropdown-menu"
+import { Input } from "@/app/admin/emploi-du-temps/utilisateurscomponents/ui/input"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

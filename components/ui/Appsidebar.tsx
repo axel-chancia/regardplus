@@ -16,8 +16,13 @@ import clsx from "clsx"
 const items = [
   {
     title: "Dashboard",
-    url: "/dashboard",
+    url: "/admin",
     icon: Home,
+  },
+  {
+    title: "Gestion des administrateurs",
+    url: "/admin/ajout-admin",
+    icon: Users,
   },
   {
     title: "Gestion des employés",
@@ -26,7 +31,7 @@ const items = [
   },
   {
     title: "Calendrier",
-    url: "/calendrier",
+    url: "/admin/emploi-du-temps",
     icon: Calendar,
   },
   {
@@ -34,6 +39,7 @@ const items = [
     url: "/parametres",
     icon: Settings,
   },
+  
 ]
 
 export function AppSidebar() {

@@ -3,9 +3,9 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import { MoreHorizontal } from "lucide-react"
-import { Checkbox } from "@/app/utilisateurs/utilisateurscomponents/ui/checkbox"
+import { Checkbox } from "@/app/admin/emploi-du-temps/utilisateurscomponents/ui/checkbox"
 
-import { Button } from "@/app/utilisateurs/utilisateurscomponents/ui/button"
+import { Button } from "@/app/admin/emploi-du-temps/utilisateurscomponents/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/app/utilisateurs/utilisateurscomponents/ui/dropdown-menu"
+} from "@/app/admin/emploi-du-temps/utilisateurscomponents/ui/dropdown-menu"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -33,14 +33,14 @@ export const columns: ColumnDef<User>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value: boolean) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={(value: boolean) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
