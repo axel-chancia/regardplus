@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: "user page",
-  description: "Liste des utilisateurs",
+  title: "login page",
+  description: "Page de connexion avec scan",
 };
 
 export default function RootLayout({

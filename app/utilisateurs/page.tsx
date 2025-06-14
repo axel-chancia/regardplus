@@ -1,7 +1,25 @@
-export default function Page() {
+import { columns, User } from "./columns"
+import { DataTable } from "./data-table"
+
+async function getData(): Promise<User[]> {
+  // Fetch data from your API here.
+  return [
+    {
+      id: "728ed52f",
+      noms: "Moussavou Jean Pierre",
+      poste: "Directeur",
+      email: "m@example.com",
+    },
+    // ...
+  ]
+}
+
+export default async function DemoPage() {
+  const data = await getData()
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-4xl font-bold mb-4">Welcome to the Landing Page</h1>
+    <div className="container mx-auto py-10">
+      <DataTable columns={columns} data={data} />
     </div>
-  );
+  )
 }
