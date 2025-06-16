@@ -19,6 +19,7 @@ import {
 import { toast } from "sonner"
 
 type TypeDemande = 'qr_perdu' | 'scan_oublie' | 'probleme_technique' | 'horaire_modification' | 'autre'
+type UrgenceType = 'faible' | 'normale' | 'elevee'
 
 export default function PageDemandeAssistance() {
   const [etapeActuelle, setEtapeActuelle] = useState<'selection' | 'formulaire' | 'confirmation'>('selection')
@@ -32,7 +33,7 @@ export default function PageDemandeAssistance() {
     dateIncident: '',
     heureIncident: '',
     description: '',
-    urgence: 'normale' as 'faible' | 'normale' | 'elevee'
+    urgence: 'normale' as UrgenceType
   })
 
   console.log('Page demande d\'assistance chargée');
@@ -297,7 +298,7 @@ export default function PageDemandeAssistance() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Date de l'incident *
+                      Date de l&apos;incident *
                     </label>
                     <Input
                       type="date"
@@ -322,7 +323,7 @@ export default function PageDemandeAssistance() {
               {/* Niveau d'urgence */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Niveau d'urgence
+                  Niveau d&apos;urgence
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
@@ -336,7 +337,10 @@ export default function PageDemandeAssistance() {
                         name="urgence"
                         value={urgence.value}
                         checked={donneesFormulaire.urgence === urgence.value}
-                        onChange={(e) => setDonneesFormulaire({...donneesFormulaire, urgence: e.target.value as any})}
+                        onChange={(e) => setDonneesFormulaire({
+                          ...donneesFormulaire,
+                          urgence: e.target.value as UrgenceType
+                        })}
                         className="sr-only"
                       />
                       <div className={`border-2 rounded-lg p-3 text-center transition-all ${
@@ -407,7 +411,7 @@ export default function PageDemandeAssistance() {
                 Demande Envoyée avec Succès !
               </h2>
               <p className="text-gray-600">
-                Votre demande d'assistance a été transmise à notre équipe support.
+                Votre demande d&apos;assistance a été transmise à notre équipe support.
               </p>
             </div>
 
@@ -446,7 +450,7 @@ export default function PageDemandeAssistance() {
               <ul className="text-sm text-blue-800 space-y-1 text-left">
                 <li>• Vous recevrez un email de confirmation dans les prochaines minutes</li>
                 <li>• Notre équipe traitera votre demande sous 24-48h ouvrables</li>
-                <li>• Vous serez contacté(e) par email ou téléphone selon l'urgence</li>
+                <li>• Vous serez contacté(e) par email ou téléphone selon l&apos;urgence</li>
               </ul>
             </div>
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react' // Importez useCallback
 import { Html5QrcodeScanner } from 'html5-qrcode'
 import { Button } from '@/components/ui/button'
 import { Camera, X, CheckCircle, AlertCircle } from 'lucide-react'
@@ -17,18 +17,41 @@ export function QRScanner({ onClose, onScanSuccess }: QRScannerProps) {
   const [scanResult, setScanResult] = useState<string | null>(null)
   const [verificationStatus, setVerificationStatus] = useState<'idle' | 'verifying' | 'success' | 'failed'>('idle')
   const scannerRef = useRef<Html5QrcodeScanner | null>(null)
-  const { employees } = useAppStore()
+  const { employees } = useAppStore() // 'employees' est aussi une dépendance de verifyEmployee
 
   console.log('QRScanner initialized');
+
+  // Encapsulez verifyEmployee dans useCallback pour la stabiliser.
+  // Elle ne sera recréée que si 'employees' ou 'onScanSuccess' changent.
+  const verifyEmployee = useCallback(async (qrCode: string) => {
+    console.log('Verifying employee with QR code:', qrCode);
+    setVerificationStatus('verifying');
+
+    // Simulation d'une vérification
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    const employee = employees.find(emp => emp.qrCode === qrCode);
+
+    if (employee) {
+      console.log('Employee verified successfully:', employee);
+      setVerificationStatus('success');
+      toast.success(`Employé vérifié: ${employee.prenom} ${employee.nom}`);
+      onScanSuccess(qrCode);
+    } else {
+      console.log('Employee verification failed for QR:', qrCode);
+      setVerificationStatus('failed');
+      toast.error('Code QR non reconnu ou employé non trouvé');
+    }
+  }, [employees, onScanSuccess]); // Dépendances de verifyEmployee
 
   useEffect(() => {
     if (isScanning) {
       console.log('Starting QR scanner...');
-      
+
       const scanner = new Html5QrcodeScanner(
         "qr-reader",
-        { 
-          fps: 10, 
+        {
+          fps: 10,
           qrbox: { width: 250, height: 250 },
           aspectRatio: 1.0,
         },
@@ -40,6 +63,7 @@ export function QRScanner({ onClose, onScanSuccess }: QRScannerProps) {
           console.log('QR Code scanned:', decodedText);
           setScanResult(decodedText);
           setIsScanning(false);
+          // Utilisez verifyEmployee ici
           verifyEmployee(decodedText);
         },
         (error) => {
@@ -56,28 +80,7 @@ export function QRScanner({ onClose, onScanSuccess }: QRScannerProps) {
         }
       };
     }
-  }, [isScanning]);
-
-  const verifyEmployee = async (qrCode: string) => {
-    console.log('Verifying employee with QR code:', qrCode);
-    setVerificationStatus('verifying');
-
-    // Simulation d'une vérification
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    const employee = employees.find(emp => emp.qrCode === qrCode);
-    
-    if (employee) {
-      console.log('Employee verified successfully:', employee);
-      setVerificationStatus('success');
-      toast.success(`Employé vérifié: ${employee.prenom} ${employee.nom}`);
-      onScanSuccess(qrCode);
-    } else {
-      console.log('Employee verification failed for QR:', qrCode);
-      setVerificationStatus('failed');
-      toast.error('Code QR non reconnu ou employé non trouvé');
-    }
-  };
+  }, [isScanning, verifyEmployee]); // <-- AJOUTEZ 'verifyEmployee' ici
 
   const startScanning = () => {
     console.log('User clicked start scanning');
@@ -151,7 +154,7 @@ export function QRScanner({ onClose, onScanSuccess }: QRScannerProps) {
                   </div>
                 )}
               </div>
-              
+
               <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-sm text-gray-600 mb-2">Code QR scanné:</p>
                 <p className="font-mono text-sm bg-white p-2 rounded border">
@@ -160,8 +163,8 @@ export function QRScanner({ onClose, onScanSuccess }: QRScannerProps) {
               </div>
 
               <div className="flex space-x-2 mt-4">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={() => {
                     setScanResult(null);
                     setVerificationStatus('idle');

@@ -7,11 +7,11 @@ import { Input } from "@/components/ui/input"
 import { DataTable } from "@/components/ui/data-table"
 import { useAppStore } from "@/store/useAppStore"
 import { Admin } from "@/types"
-import { 
-  UserPlus, 
-  Trash2, 
-  Mail, 
-  User,
+import {
+  UserPlus,
+  Trash2,
+  // Removed 'Mail' as it's not used in JSX
+  // Removed 'User' as it's not used in JSX
   X,
   Shield,
   AlertTriangle
@@ -21,12 +21,18 @@ export default function UtilisateursPage() {
   const { admins, addAdmin, deleteAdmin, initializeData } = useAppStore()
   const [showAddForm, setShowAddForm] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null)
+
+  // Définir les rôles valides pour le formulaire d'ajout
+  const validRolesForForm = ['admin', 'manager'] as const;
+  type FormRoleType = typeof validRolesForForm[number]; // Type 'admin' | 'manager'
+
   const [formData, setFormData] = useState({
     nom: '',
     prenom: '',
     email: '',
     motDePasse: '',
-    role: 'admin' as 'admin' | 'manager' | 'super_admin'
+    // Utiliser le type FormRoleType pour le rôle du formulaire
+    role: 'admin' as FormRoleType
   })
 
   console.log('Admin users page rendering with', admins.length, 'admins');
@@ -121,12 +127,12 @@ export default function UtilisateursPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Adding new admin:', formData);
-    
+
     addAdmin({
       nom: formData.nom,
       prenom: formData.prenom,
       email: formData.email,
-      role: formData.role,
+      role: formData.role, // Ce rôle est déjà typé correctement maintenant
       statut: 'actif'
     });
 
@@ -153,7 +159,7 @@ export default function UtilisateursPage() {
           <h1 className="text-2xl font-bold text-gray-900">Gestion des Administrateurs</h1>
           <p className="text-gray-600">Gérez les comptes administrateurs de votre entreprise</p>
         </div>
-        <Button 
+        <Button
           onClick={() => setShowAddForm(true)}
           className="bg-blue-600 hover:bg-blue-700"
         >
@@ -163,8 +169,8 @@ export default function UtilisateursPage() {
       </div>
 
       <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-        <DataTable 
-          columns={columns} 
+        <DataTable
+          columns={columns}
           data={admins}
           searchPlaceholder="Rechercher un administrateur..."
         />
@@ -180,7 +186,7 @@ export default function UtilisateursPage() {
                 <X className="w-4 h-4" />
               </Button>
             </div>
-            
+
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -194,7 +200,7 @@ export default function UtilisateursPage() {
                   placeholder="Prénom"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Nom
@@ -207,7 +213,7 @@ export default function UtilisateursPage() {
                   placeholder="Nom"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Email
@@ -220,7 +226,7 @@ export default function UtilisateursPage() {
                   placeholder="email@entreprise.ga"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Mot de passe
@@ -233,25 +239,37 @@ export default function UtilisateursPage() {
                   placeholder="••••••••"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Rôle
                 </label>
                 <select
                   value={formData.role}
-                  onChange={(e) => setFormData({...formData, role: e.target.value as any})}
+                  // Correction de l'erreur 'any'
+                  onChange={(e) => {
+                    const newRole = e.target.value;
+                    // Vérifier si la nouvelle valeur fait partie des rôles valides définis
+                    if (validRolesForForm.includes(newRole as FormRoleType)) {
+                      setFormData({...formData, role: newRole as FormRoleType});
+                    } else {
+                      // Gérer le cas où une valeur inattendue serait reçue (normalement impossible avec un select)
+                      console.warn(`Rôle invalide sélectionné: ${newRole}`);
+                      setFormData({...formData, role: 'admin'}); // Revenir à un rôle par défaut
+                    }
+                  }}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="admin">Administrateur</option>
                   <option value="manager">Manager</option>
+                  {/* Ne pas inclure 'super_admin' ici car il n'est pas censé être assigné via ce formulaire */}
                 </select>
               </div>
-              
+
               <div className="flex space-x-3 pt-4">
-                <Button 
-                  type="button" 
-                  variant="outline" 
+                <Button
+                  type="button"
+                  variant="outline"
                   onClick={() => setShowAddForm(false)}
                   className="flex-1"
                 >
@@ -274,20 +292,20 @@ export default function UtilisateursPage() {
               <AlertTriangle className="w-6 h-6 text-red-600 mr-3" />
               <h2 className="text-xl font-semibold text-gray-900">Confirmer la suppression</h2>
             </div>
-            
+
             <p className="text-gray-600 mb-6">
               Êtes-vous sûr de vouloir supprimer cet administrateur ? Cette action est irréversible.
             </p>
-            
-            <div className="flex space-x-3">		
-              <Button 
-                variant="outline" 
+
+            <div className="flex space-x-3">
+              <Button
+                variant="outline"
                 onClick={() => setShowDeleteConfirm(null)}
                 className="flex-1"
               >
                 Annuler
               </Button>
-              <Button 
+              <Button
                 onClick={() => handleDelete(showDeleteConfirm)}
                 className="flex-1 bg-red-600 hover:bg-red-700 text-white"
               >

@@ -196,7 +196,7 @@ export default function EmploiesPage() {
               </Button>
             </div>
             <p className="text-gray-600 text-center py-8">
-              Formulaire d'ajout d'employé à implémenter
+              Formulaire d&rsquoajout d&rsquoemployé à implémenter
             </p>
             <Button onClick={() => setShowAddForm(false)} className="w-full">
               Fermer

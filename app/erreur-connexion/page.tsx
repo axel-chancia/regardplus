@@ -30,12 +30,14 @@ export default function PageErreurConnexion() {
   }, [])
 
   const retourConnexion = () => {
-    console.log('Retour vers la page de connexion');
-    window.location.href = '/connexion'
+    if (tentativesRestantes > 1) {
+      setTentativesRestantes(t => t - 1)
+    } else {
+      window.location.href = '/connexion'
+    }
   }
 
   const contacterSupport = () => {
-    console.log('Redirection vers le support');
     window.location.href = '/demande-assistance'
   }
 
@@ -109,9 +111,9 @@ export default function PageErreurConnexion() {
 
           {/* Conseils de dépannage */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+            <h2 className="text-lg font-semibold text-gray-900 mb-3">
               Conseils pour résoudre le problème :
-            </h3>
+            </h2>
             <ul className="space-y-2">
               {conseils.map((conseil, index) => (
                 <li key={index} className="flex items-start">
@@ -145,9 +147,9 @@ export default function PageErreurConnexion() {
 
         {/* Informations de contact d'urgence */}
         <div className="mt-8 bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
             Besoin d'aide immédiate ?
-          </h3>
+          </h2>
           <div className="space-y-3">
             <div className="flex items-center text-gray-600">
               <Phone className="w-5 h-5 mr-3 text-green-600" />

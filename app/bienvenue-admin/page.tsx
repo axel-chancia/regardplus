@@ -16,7 +16,7 @@ import {
 export default function PageBienvenueAdmin() {
   const [animationTerminee, setAnimationTerminee] = useState(false)
 
-  console.log('Page bienvenue admin chargée');
+  console.log("Page bienvenue admin chargée")
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -26,8 +26,8 @@ export default function PageBienvenueAdmin() {
   }, [])
 
   const continuerVersTableauDeBord = () => {
-    console.log('Redirection vers le tableau de bord admin');
-    window.location.href = '/admin'
+    console.log("Redirection vers le tableau de bord admin")
+    window.location.href = "/admin"
   }
 
   return (
@@ -36,15 +36,15 @@ export default function PageBienvenueAdmin() {
         <div className="max-w-4xl mx-auto">
           {/* En-tête de bienvenue */}
           <div className="text-center mb-12">
-            <div className={`transition-all duration-1000 ${animationTerminee ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}>
+            <div className={`transition-all duration-1000 ${animationTerminee ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}>
               <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-600 rounded-full mb-6">
                 <Shield className="w-10 h-10 text-white" />
               </div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Bienvenue, Administrateur !
+                Bienvenue, Administrateur&nbsp;!
               </h1>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Vous êtes maintenant connecté à votre espace d'administration. 
+                Vous êtes maintenant connecté à votre espace d&rsquo;administration. 
                 Gérez efficacement votre entreprise avec nos outils avancés.
               </p>
             </div>
@@ -52,7 +52,7 @@ export default function PageBienvenueAdmin() {
 
           {/* Cartes des fonctionnalités */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <div className={`bg-white rounded-xl p-6 shadow-lg border border-gray-100 transition-all duration-700 delay-200 ${animationTerminee ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+            <div className={`bg-white rounded-xl p-6 shadow-lg border border-gray-100 transition-all duration-700 delay-200 ${animationTerminee ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                   <BarChart3 className="w-6 h-6 text-blue-600" />
@@ -70,7 +70,7 @@ export default function PageBienvenueAdmin() {
               </div>
             </div>
 
-            <div className={`bg-white rounded-xl p-6 shadow-lg border border-gray-100 transition-all duration-700 delay-300 ${animationTerminee ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+            <div className={`bg-white rounded-xl p-6 shadow-lg border border-gray-100 transition-all duration-700 delay-300 ${animationTerminee ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                   <Users className="w-6 h-6 text-green-600" />
@@ -88,7 +88,7 @@ export default function PageBienvenueAdmin() {
               </div>
             </div>
 
-            <div className={`bg-white rounded-xl p-6 shadow-lg border border-gray-100 transition-all duration-700 delay-400 ${animationTerminee ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+            <div className={`bg-white rounded-xl p-6 shadow-lg border border-gray-100 transition-all duration-700 delay-400 ${animationTerminee ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                   <Calendar className="w-6 h-6 text-purple-600" />
@@ -108,7 +108,7 @@ export default function PageBienvenueAdmin() {
           </div>
 
           {/* Statistiques rapides */}
-          <div className={`bg-white rounded-xl p-6 shadow-lg border border-gray-100 mb-8 transition-all duration-700 delay-500 ${animationTerminee ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+          <div className={`bg-white rounded-xl p-6 shadow-lg border border-gray-100 mb-8 transition-all duration-700 delay-500 ${animationTerminee ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <TrendingUp className="w-5 h-5 text-blue-600 mr-2" />
               Aperçu Rapide
@@ -134,7 +134,7 @@ export default function PageBienvenueAdmin() {
           </div>
 
           {/* Nouvelles fonctionnalités */}
-          <div className={`bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-6 text-white mb-8 transition-all duration-700 delay-600 ${animationTerminee ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+          <div className={`bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-6 text-white mb-8 transition-all duration-700 delay-600 ${animationTerminee ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-xl font-semibold mb-2">
@@ -151,7 +151,7 @@ export default function PageBienvenueAdmin() {
           </div>
 
           {/* Bouton d'action principal */}
-          <div className={`text-center transition-all duration-700 delay-700 ${animationTerminee ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+          <div className={`text-center transition-all duration-700 delay-700 ${animationTerminee ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
             <Button
               onClick={continuerVersTableauDeBord}
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
@@ -160,14 +160,14 @@ export default function PageBienvenueAdmin() {
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
             <p className="text-gray-500 text-sm mt-4">
-              Vous serez redirigé vers votre espace d'administration
+              Vous serez redirigé vers votre espace d&rsquo;administration
             </p>
           </div>
 
           {/* Footer */}
           <div className="text-center mt-12 pt-8 border-t border-gray-200">
             <p className="text-gray-500 text-sm">
-              Besoin d'aide ? Consultez notre{" "}
+              Besoin d&rsquo;aide ? Consultez notre{" "}
               <a href="/aide-admin" className="text-blue-600 hover:text-blue-700 underline">
                 guide administrateur
               </a>

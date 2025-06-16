@@ -223,6 +223,8 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
     ];
 
+    
+
     // Calcul des statistiques
     const stats: CompanyStats = {
       totalEmployees: sampleEmployees.length,

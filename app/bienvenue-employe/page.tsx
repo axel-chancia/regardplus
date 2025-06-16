@@ -18,7 +18,7 @@ export default function PageBienvenueEmploye() {
   const [animationTerminee, setAnimationTerminee] = useState(false)
   const [heureActuelle, setHeureActuelle] = useState(new Date())
 
-  console.log('Page bienvenue employé chargée');
+  console.log('Page bienvenue employé chargée')
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -36,7 +36,7 @@ export default function PageBienvenueEmploye() {
   }, [])
 
   const continuerVersTableauDeBord = () => {
-    console.log('Redirection vers le tableau de bord employé');
+    console.log('Redirection vers le tableau de bord employé')
     window.location.href = '/employe-dashboard'
   }
 
@@ -61,7 +61,7 @@ export default function PageBienvenueEmploye() {
                 {obtenirSalutation()}, Jean !
               </h1>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Connexion réussie ! Vous êtes maintenant enregistré(e) dans le système. 
+                Connexion réussie ! Vous êtes maintenant enregistré(e) dans le système.{" "}
                 Bonne journée de travail !
               </p>
             </div>
@@ -82,7 +82,7 @@ export default function PageBienvenueEmploye() {
               <div className="flex items-center">
                 <Clock className="w-5 h-5 text-blue-600 mr-3" />
                 <div>
-                  <div className="text-sm text-gray-600">Heure d'arrivée</div>
+                  <div className="text-sm text-gray-600">Heure d&apos;arrivée</div>
                   <div className="font-semibold">{heureActuelle.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</div>
                 </div>
               </div>
@@ -111,7 +111,7 @@ export default function PageBienvenueEmploye() {
                   <Target className="w-6 h-6 text-blue-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 ml-3">
-                  Vos Objectifs Aujourd'hui
+                  Vos Objectifs Aujourd&apos;hui
                 </h3>
               </div>
               <div className="space-y-3">
@@ -215,14 +215,14 @@ export default function PageBienvenueEmploye() {
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
             <p className="text-gray-500 text-sm mt-4">
-              N'oubliez pas de scanner à la sortie en fin de journée !
+              N&apos;oubliez pas de scanner à la sortie en fin de journée !
             </p>
           </div>
 
           {/* Footer */}
           <div className="text-center mt-12 pt-8 border-t border-gray-200">
             <p className="text-gray-500 text-sm">
-              Un problème ? Contactez l'{" "}
+              Un problème ? Contactez l{" "}
               <a href="/demande-assistance" className="text-green-600 hover:text-green-700 underline">
                 support technique
               </a>

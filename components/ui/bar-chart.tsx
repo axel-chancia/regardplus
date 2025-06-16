@@ -1,6 +1,10 @@
 "use client"
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { TooltipProps } from 'recharts' // Import public
+
+type NameType = string | number
+type ValueType = string | number
 
 interface BarChartData {
   mois: string;
@@ -14,15 +18,16 @@ interface CustomBarChartProps {
   title?: string;
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+// Typage précis du CustomTooltip en utilisant TooltipProps de Recharts
+const CustomTooltip = ({ active, payload, label }: TooltipProps<ValueType, NameType>) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
         <p className="text-sm font-medium text-gray-900 mb-2">{label}</p>
-        {payload.map((item: any, index: number) => (
+        {payload.map((item, index) => (
           <p key={index} className="text-sm" style={{ color: item.color }}>
-            <span className="font-medium">{item.name}:</span> {item.value}
-            {item.dataKey === 'completions' ? ' tâches' : '%'}
+            <span className="font-medium">{item.name}:</span> {item.value}{" "}
+            {item.dataKey === 'completions' ? ' tâches' : (item.dataKey === 'score' ? '%' : '')}
           </p>
         ))}
       </div>
@@ -43,12 +48,12 @@ export function CustomBarChart({ data, title }: CustomBarChartProps) {
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-            <XAxis 
-              dataKey="mois" 
+            <XAxis
+              dataKey="mois"
               stroke="#6b7280"
               fontSize={12}
             />
-            <YAxis 
+            <YAxis
               stroke="#6b7280"
               fontSize={12}
             />

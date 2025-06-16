@@ -4,14 +4,12 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useAppStore } from "@/store/useAppStore"
-import { Evenement } from "@/types"
-import { 
-  Calendar, 
-  Plus, 
+// Removed 'Evenement' import as it's not directly used here
+import {
+  Plus,
   Users,
-  Clock,
   X,
-  Filter
+  // Removed 'Calendar', 'Clock', 'Filter' as they are not used as components
 } from "lucide-react"
 
 export default function PlanningPage() {
@@ -19,13 +17,18 @@ export default function PlanningPage() {
   const [showAddForm, setShowAddForm] = useState(false)
   const [selectedWeek, setSelectedWeek] = useState(new Date())
   const [filterGroup, setFilterGroup] = useState<number | null>(null)
+
+  // Define valid event types to avoid 'any'
+  const eventTypes = ['reunion', 'formation', 'evenement', 'conge'] as const;
+  type EventType = typeof eventTypes[number]; // Type for 'reunion' | 'formation' | 'evenement' | 'conge'
+
   const [formData, setFormData] = useState({
     titre: '',
     description: '',
     date: '',
     heureDebut: '',
     heureFin: '',
-    type: 'reunion' as 'reunion' | 'formation' | 'evenement' | 'conge',
+    type: 'reunion' as EventType, // Use the defined EventType
     participants: [] as string[],
     couleur: '#2563EB'
   })
@@ -65,7 +68,7 @@ export default function PlanningPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Adding new event:', formData);
-    
+
     addEvent({
       titre: formData.titre,
       description: formData.description,
@@ -108,7 +111,7 @@ export default function PlanningPage() {
               <option key={group} value={group}>Groupe {group}</option>
             ))}
           </select>
-          <Button 
+          <Button
             onClick={() => setShowAddForm(true)}
             className="bg-blue-600 hover:bg-blue-700"
           >
@@ -149,7 +152,7 @@ export default function PlanningPage() {
       <div className="space-y-6">
         {Object.entries(employeeGroups).map(([groupNumber, groupEmployees]) => {
           if (filterGroup && parseInt(groupNumber) !== filterGroup) return null;
-          
+
           return (
             <div key={groupNumber} className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
               <div className="flex items-center mb-4">
@@ -158,7 +161,7 @@ export default function PlanningPage() {
                   Groupe {groupNumber} ({groupEmployees.length} employés)
                 </h3>
               </div>
-              
+
               <div className="grid grid-cols-8 gap-2">
                 {/* En-tête */}
                 <div className="font-medium text-gray-700 text-sm p-2">Employé</div>
@@ -170,7 +173,7 @@ export default function PlanningPage() {
                     </div>
                   </div>
                 ))}
-                
+
                 {/* Lignes d'employés */}
                 {groupEmployees.map(employee => (
                   <div key={employee.id} className="contents">
@@ -205,7 +208,7 @@ export default function PlanningPage() {
           <div className="space-y-3">
             {events.map(event => (
               <div key={event.id} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                <div 
+                <div
                   className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: event.couleur }}
                 ></div>
@@ -236,7 +239,7 @@ export default function PlanningPage() {
                 <X className="w-4 h-4" />
               </Button>
             </div>
-            
+
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -250,7 +253,7 @@ export default function PlanningPage() {
                   placeholder="Titre de l'événement"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Description
@@ -263,7 +266,7 @@ export default function PlanningPage() {
                   placeholder="Description de l'événement"
                 />
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -282,7 +285,17 @@ export default function PlanningPage() {
                   </label>
                   <select
                     value={formData.type}
-                    onChange={(e) => setFormData({...formData, type: e.target.value as any})}
+                    onChange={(e) => {
+                      // Type safety: ensure the value is one of the valid event types
+                      const newType = e.target.value;
+                      if (eventTypes.includes(newType as EventType)) {
+                        setFormData({...formData, type: newType as EventType});
+                      } else {
+                        // Handle unexpected value, e.g., default to 'reunion' or log error
+                        console.warn(`Type d'événement invalide: ${newType}`);
+                        setFormData({...formData, type: 'reunion'});
+                      }
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="reunion">Réunion</option>
@@ -292,7 +305,7 @@ export default function PlanningPage() {
                   </select>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -317,11 +330,11 @@ export default function PlanningPage() {
                   />
                 </div>
               </div>
-              
+
               <div className="flex space-x-3 pt-4">
-                <Button 
-                  type="button" 
-                  variant="outline" 
+                <Button
+                  type="button"
+                  variant="outline"
                   onClick={() => setShowAddForm(false)}
                   className="flex-1"
                 >

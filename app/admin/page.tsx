@@ -52,11 +52,15 @@ export default function TableauDeBordAdmin() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+       <div>
+        <h2 className="text-xl font-bold text-gray-900 mb-4">
+           Répartition par Département
+        </h2>
         <CustomPieChart 
-          data={companyStats.departmentDistribution}
-          title="Répartition par Département"
-        />
-        <RecentEmployees />
+           data={companyStats.departmentDistribution}
+         />
+       </div>
+       <RecentEmployees />
       </div>
     </div>
   )

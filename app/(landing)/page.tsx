@@ -105,7 +105,7 @@ export default function PageAccueil() {
 
           <div className="mt-16 pt-8 border-t border-blue-500 border-opacity-30">
             <p className="text-blue-200 text-sm">
-              © 2024 Contrôle QR Gabon - Tous droits réservés
+              © 2024 Regardplus Gabon - Tous droits réservés
             </p>
           </div>
         </div>
