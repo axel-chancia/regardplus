@@ -148,7 +148,7 @@ export default function PageErreurConnexion() {
         {/* Informations de contact d'urgence */}
         <div className="mt-8 bg-white rounded-lg border border-gray-200 p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
-            Besoin d'aide immédiate ?
+            Besoin d&aposaide immédiate ?
           </h2>
           <div className="space-y-3">
             <div className="flex items-center text-gray-600">
@@ -171,7 +171,7 @@ export default function PageErreurConnexion() {
         {/* Codes d'erreur pour le support */}
         <div className="mt-6 text-center">
           <div className="text-xs text-gray-500">
-            Code d'erreur : {typeErreur.toUpperCase()}_LOGIN_FAILED_{Date.now().toString().slice(-6)}
+            Code d&aposerreur : {typeErreur.toUpperCase()}_LOGIN_FAILED_{Date.now().toString().slice(-6)}
           </div>
           <div className="text-xs text-gray-400 mt-1">
             Communiquez ce code au support pour un dépannage plus rapide
